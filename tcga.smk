@@ -1,19 +1,17 @@
 import pandas as pd
 
-# Load metadata files
+
 run_data = pd.read_csv("data/run_metadata.tsv", sep="\t", header="infer")
 sample_data = pd.read_csv("data/sample.tsv", sep="\t", header="infer")
 
-# Set indices for easy lookups
+
 run_data.set_index("run", inplace=True)
 sample_data.set_index("sample", inplace=True)
 
-# Function to get file paths for all runs associated with a sample
 def get_sample_run_paths(wildcards):
     run_ids = sample_data.loc[wildcards.sample, "runs"].split(",")
     return [run_data.loc[run_id, "file_path"] for run_id in run_ids]
 
-# Snakemake rules
 rule filter_samples:
     input:
         run_paths=lambda wildcards: get_sample_run_paths(wildcards)
