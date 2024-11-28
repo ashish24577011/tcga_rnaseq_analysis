@@ -1,14 +1,14 @@
 library(ggplot2)
 
-# Command-line arguments
+
 args <- commandArgs(trailingOnly = TRUE)
 input_file <- args[1]
 output_file <- args[2]
 
-# Load extracted data
+
 gene_data <- read.csv(input_file)
 
-# Plot expression values
+
 ggplot(gene_data, aes(x = Sample_Type, y = log2(Expression_TPM))) +
   geom_boxplot(fill = "skyblue", color = "black") +
   labs(
@@ -24,6 +24,6 @@ ggplot(gene_data, aes(x = Sample_Type, y = log2(Expression_TPM))) +
     panel.grid.minor = element_blank()
   )
 
-# Save plot to file
+
 ggsave(output_file)
 
