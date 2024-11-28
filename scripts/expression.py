@@ -2,19 +2,19 @@ import sys
 import pandas as pd
 import os
 
-# Command-line arguments
+
 filtered_file = sys.argv[1]
 output_file = sys.argv[2]
 
-# Load sample data
+
 samples = pd.read_csv(filtered_file, sep='\t', header=None, names=[
     'File_ID', 'File_path', 'Data_category', 'Data_type', 'Project_ID', 'Case_ID', 'Sample_ID', 'Sample_Type'
 ])
 
-# Initialize list to store expression data
+
 gene_data = []
 
-# Loop through each sample to find expression values
+
 base_path = os.path.expanduser("~/projecto/tcga_analysis/data/")
 for _, row in samples.iterrows():
     file_id = row['File_ID']
@@ -32,7 +32,7 @@ for _, row in samples.iterrows():
                     })
                     break
 
-# Convert list to DataFrame and save
+
 gene_df = pd.DataFrame(gene_data)
 gene_df.to_csv(output_file, index=False)
 
